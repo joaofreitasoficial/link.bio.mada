@@ -1,0 +1,206 @@
+:root {
+    --sage-green: #8C9C8C;
+    --sage-light: #AAB9AA;
+    --off-white: #F5F5F0;
+    --charcoal: #333333;
+    --accent: #FEFEFE;
+    --card-border: #D1D1D1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--off-white);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--sage-green);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 5vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Header Styles */
+.header {
+    margin-bottom: 50px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInDown 1s ease-out forwards;
+}
+
+.profile-container {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 25px;
+    border-radius: 50%;
+    padding: 4px;
+    background: var(--sage-green);
+    box-shadow: 0 15px 35px rgba(137, 148, 129, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--off-white);
+    transition: transform 0.5s ease;
+}
+
+.profile-container:hover .profile-img {
+    transform: scale(1.05);
+}
+
+@font-face {
+    font-family: 'Kudryashev Display Contrast';
+    /* Como é uma fonte premium (não há no Google Fonts), precisamos carregar os arquivos locamente se você possuir. */
+    src: url('assets/KudryashevDisplayContrast.woff2') format('woff2'),
+         url('assets/KudryashevDisplayContrast.woff') format('woff');
+    font-display: swap;
+}
+
+.brand-title {
+    font-family: 'Kudryashev Display Contrast', 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--sage-green);
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+}
+
+.brand-subtitle {
+    font-size: 1rem;
+    color: var(--sage-green);
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 0.5px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+/* Links Container */
+.links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 50px;
+}
+
+.link-card {
+    display: flex;
+    align-items: center;
+    background: var(--accent);
+    padding: 20px 24px;
+    border-radius: 2px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--card-border);
+    opacity: 0;
+}
+
+/* Delay staggered animation */
+.link-card:nth-child(1) { animation: fadeInUp 0.8s ease-out 0.2s forwards; }
+.link-card:nth-child(2) { animation: fadeInUp 0.8s ease-out 0.4s forwards; }
+.link-card:nth-child(3) { animation: fadeInUp 0.8s ease-out 0.6s forwards; }
+.link-card:nth-child(4) { animation: fadeInUp 0.8s ease-out 0.8s forwards; }
+
+.link-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(137, 148, 129, 0.1);
+    border-color: var(--sage-green);
+    background-color: var(--accent);
+}
+
+.link-card:active {
+    transform: translateY(-2px);
+}
+
+.icon {
+    width: 52px;
+    height: 52px;
+    margin-right: 22px;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.06));
+    transition: transform 0.4s ease;
+}
+
+.link-card:hover .icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.link-text {
+    text-align: left;
+}
+
+.link-text .title {
+    display: block;
+    font-weight: 500;
+    font-size: 1.15rem;
+    color: var(--sage-green);
+    margin-bottom: 2px;
+}
+
+.link-text .description {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--sage-green);
+    font-weight: 300;
+}
+
+/* Footer Styles */
+.footer {
+    padding: 30px;
+    opacity: 0;
+    animation: fadeIn 1.5s ease-out 1.2s forwards;
+}
+
+.footer p {
+    font-size: 0.75rem;
+    color: var(--sage-green);
+    margin-bottom: 6px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive Customization */
+@media (max-width: 420px) {
+    .brand-title { font-size: 2rem; }
+    .profile-container { width: 120px; height: 120px; }
+    .link-card { padding: 16px 20px; }
+    .icon { width: 44px; height: 44px; margin-right: 18px; }
+    .link-text .title { font-size: 1.05rem; }
+}
