@@ -229,6 +229,45 @@ body {
     right: 4px;
 }
 
+/* Pagination Dots */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: -10px;
+    padding-bottom: 20px;
+    position: relative;
+    z-index: 5;
+}
+
+.carousel-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sage-light);
+    opacity: 0.4;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    opacity: 1;
+    background: var(--sage-green);
+    transform: scale(1.5);
+}
+
+/* Pulse Animation for main CTA */
+.pulse-btn {
+    animation: pulseGlow 2.5s infinite;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(140, 156, 140, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(140, 156, 140, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(140, 156, 140, 0); }
+}
+
 .portfolio-img-container {
     width: 100%;
     border-radius: 16px;

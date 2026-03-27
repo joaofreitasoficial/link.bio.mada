@@ -46,13 +46,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const slides = Array.from(track.children);
         const nextButton = document.querySelector('.next-btn');
         const prevButton = document.querySelector('.prev-btn');
+        const dotsContainer = document.getElementById('portfolioDots');
         
         let currentSlideIndex = 0;
 
+        // Build Dots
+        if (dotsContainer) {
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    currentSlideIndex = index;
+                    updateCarousel();
+                });
+                dotsContainer.appendChild(dot);
+            });
+        }
+        
         function updateCarousel() {
             // Desloca a trilha horizontalmente de acordo com a foto atual
             track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
             
+            // Controle dos Dots
+            if (dotsContainer) {
+                Array.from(dotsContainer.children).forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlideIndex);
+                });
+            }
+
             // Controle visual suave dos botões
             if (currentSlideIndex === 0) {
                 prevButton.style.opacity = '0.3';
@@ -74,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Setup Inicial
         updateCarousel();
 
-        // Eventos de Navegação
+        // Eventos de Navegação pelas Setinhas
         nextButton.addEventListener('click', () => {
             if (currentSlideIndex < slides.length - 1) {
                 currentSlideIndex++;
@@ -88,6 +110,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateCarousel();
             }
         });
+        
+        // Touch Swipe Logic (Arrastar no Celular)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        track.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        track.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 40) { // Arrastou pra esquerda (Proximo)
+                if (currentSlideIndex < slides.length - 1) {
+                    currentSlideIndex++;
+                    updateCarousel();
+                }
+            }
+            if (touchEndX > touchStartX + 40) { // Arrastou pra direita (Anterior)
+                if (currentSlideIndex > 0) {
+                    currentSlideIndex--;
+                    updateCarousel();
+                }
+            }
+        }
     }
 
     console.log('Premium Link in Bio MADA Cerimonial - Inicializado');
