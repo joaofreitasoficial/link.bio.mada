@@ -40,5 +40,55 @@ document.addEventListener('DOMContentLoaded', () => {
         // observer.observe(card);
     });
 
+    // Carousel Logic - MADA Portfolio
+    const track = document.getElementById('portfolioTrack');
+    if (track) {
+        const slides = Array.from(track.children);
+        const nextButton = document.querySelector('.next-btn');
+        const prevButton = document.querySelector('.prev-btn');
+        
+        let currentSlideIndex = 0;
+
+        function updateCarousel() {
+            // Desloca a trilha horizontalmente de acordo com a foto atual
+            track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            
+            // Controle visual suave dos botões
+            if (currentSlideIndex === 0) {
+                prevButton.style.opacity = '0.3';
+                prevButton.style.pointerEvents = 'none';
+            } else {
+                prevButton.style.opacity = '1';
+                prevButton.style.pointerEvents = 'auto';
+            }
+            
+            if (currentSlideIndex === slides.length - 1) {
+                nextButton.style.opacity = '0.3';
+                nextButton.style.pointerEvents = 'none';
+            } else {
+                nextButton.style.opacity = '1';
+                nextButton.style.pointerEvents = 'auto';
+            }
+        }
+
+        // Setup Inicial
+        updateCarousel();
+
+        // Eventos de Navegação
+        nextButton.addEventListener('click', () => {
+            if (currentSlideIndex < slides.length - 1) {
+                currentSlideIndex++;
+                updateCarousel();
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateCarousel();
+            }
+        });
+    }
+
     console.log('Premium Link in Bio MADA Cerimonial - Inicializado');
 });
